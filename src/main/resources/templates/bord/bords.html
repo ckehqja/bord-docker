@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <title>list</title>
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div>
+        <form method="post" action="home" th:action="@{logout}">
+        <button type="button" th:onclick="|location.href='@{/}'|" class="btn btn-secondary btn-sm ">home</button>
+            <button type="submit" class="btn btn-secondary btn-sm" style="float:right">logout</button>
+        </form>
+    </div>
+
+    <div class="py-5 text-center">
+        <h2>게시판 리스트</h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='addForm.html'"
+                    th:onclick="|location.href='@{/bords/add}'|" type="button">글 등록</button>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>시간</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bord : ${bords}">
+                <td><a th:href="@{/bords/bord/{bordId}(bordId=${bord.id})}" th:text="${bord.id}">글 id</a></td>
+                <td><a href="bord.html"
+                       th:href="@{/bords/bord/{bordId}(bordId=${bord.id})}"
+                       th:text="${bord.title}">bord1</a></td>
+                <td th:text="${bord.userName}">kimsu</td>
+<!--                <td th:text="${bord.localDateTime}"> 시간</td>-->
+                <td th:text="${#temporals.format(bord.localDateTime, 'yy-MM-dd HH')}"> 시간</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

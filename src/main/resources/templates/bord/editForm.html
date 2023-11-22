@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+ .container {
+ max-width: 560px;
+ }
+ .context {
+  width:650px;
+  height:300px;
+  font-size:20px;
+}
+ </style>
+</head>
+<body>
+<div class="container">
+
+    <div>
+        <h2>글 수정</h2>
+    </div>
+
+    <form action="bord.html" th:action th:object="${bord}" method="post">
+        <div>
+            <label>제목</label>
+            <input type="text" class="form-control" id="title" th:errorclass="field-error"  th:field="*{title}" placeholder="제목을 입력하세요">
+            <div class="field-error" th:errors="*{title}"></div>
+        </div>
+        <div>
+            <label>글쓴이</label>
+            <input type="text" class="form-control" id="userName" th:field="*{userName}" readonly>
+
+        </div>
+        <div class="form-floating">
+            <div>
+                <label th:text="#{label.body}">내용</label>
+            </div>
+            <textarea class="form-control" style="height: 300px;" placeholder="Leave a comment here" id="body"
+                      th:field="*{body}" th:errorclass="field-error"></textarea>
+            <div class="field-error" th:errors="*{body}">오류</div>
+
+        </div>
+        <hr>
+        <div>
+            <div class="form-check">
+                <input class="check" type="checkbox" id="open" th:field="*{open}" />
+                <!--        <input type="hidden" name="_open" value="on"/>-->
+                <label for="open" class="form-check-label">공개</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="w-100 btn btn-secondary btn-lg">글 등록</button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg" type="button" onclick="location.href='bords.html'"
+                                      th:onclick="|location='@{/bords}'|">취소</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

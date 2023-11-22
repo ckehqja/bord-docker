@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+ .container {
+ max-width: 560px;
+ }
+ </style>
+    <title>bord</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h2 class="text-center">게시글</h2>
+    </div>
+    <div th:if="${param.authority}">
+        <script type="text/javascript">
+            alert("권한이 없습니다!!");
+        </script>
+    </div>
+
+    <h2 class="text-primary" th:if="${param.status}" th:text="'저장 완료!'"></h2>
+    <h2 class="text-danger" th:if="${param.authority}" th:text="'권한이 없습니다.'"></h2>
+
+    <div>
+        <label>글 ID</label>
+        <input type="text" id="id" name="id" class="form-control" th:value="${bord.id}" readonly>
+    </div>
+    <div>
+        <label th:text="#{label.userName}">글쓴이</label>
+        <input type="text" id="userName" name="userName" class="form-control" th:value="${bord.userName}" readonly>
+    </div>
+    <div>
+        <label th:text="#{label.title}">제목</label>
+        <input type="text" id="title" name="title" class="form-control" th:value="${bord.title}" readonly>
+    </div>
+    <div class="form-floating">
+        <div th:if="${bord.attachFile}">
+            첨부 파일: <a  th:href="|/attach/${bord.id}|" th:text="a"/>
+        </div>
+        <div>
+            <label th:text="#{label.body}">내용</label>
+        </div>
+        <div>
+        <img th:if="(${storeName} != null)" th:src="|/images/${storeName}|" width="300" height="300"/>
+            <div>
+                <span th:text="${bord.body}">body</span>
+            </div>
+<!--        <textarea class="form-control" style="height: 300px;" placeholder="Leave a comment here" id="body"-->
+<!--                  th:field="${bord.body}" readonly>-->
+<!--        </textarea>-->
+<!--        <label for="body">Comments</label>-->
+        </div>
+    </div>
+
+    <hr>
+    <div>
+        <div class="form-check">
+            <input type="checkbox" id="open" th:field="${bord.open}"  disabled/>
+            <!--        <input type="hidden" name="_open" value="on"/>-->
+            <label for="open" class="form-check-label">공개</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='editForm.html'"
+                    th:onclick="|location='@{/bords/edit/{bordId}(bordId=${bord.id})}'|"
+                    th:text="#{button.edit}"
+            >상품 수정</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='bords.html'"
+                    th:onclick="|location='@{/bords}'|" th:text="#{button.list}"
+            >목록으로</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='bords.html'"
+                    th:onclick="|location='@{/delete/{bordId}(bordId=${bord.Id})}'|" th:text="#{button.delete}"
+            >삭제</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

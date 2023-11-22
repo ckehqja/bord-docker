@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css" rel="stylesheet">
+  <style>
+ .container {
+ max-width: 560px;
+ }
+ </style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="text-center">안녕!</h1>
+  <h3 th:text="|${member.userName}야 안녕!|"></h3>
+  <hr>
+  <div>
+    <button class="m-1 w-100 btn btn btn-outline-secondary btn-lg" type="button" onclick="location.href='bord/bords'"
+            th:onclick="|location.href='@{/bords}'|">게시판</button>
+  </div>
+
+
+
+  <form method="post" action="home.html" th:action="@{/logout}" >
+    <div>
+      <button class="m-1 w-100 btn btn btn-outline-secondary btn-lg" type="submit">로그아웃</button>
+    </div>
+  </form>
+
+</div>
+
+
+</body>
+</html>
